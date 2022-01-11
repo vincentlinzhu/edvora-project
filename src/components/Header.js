@@ -15,7 +15,7 @@ const Container = styled.div`
   text-decoration: none;
   background-color: transparent;
   margin-left: 40px;
-  margin-bottom: 20px;
+  // margin-bottom: 20px;
 
   h1 {
     font-size: 35px;
