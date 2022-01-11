@@ -3,25 +3,7 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 
 const Item = () => {
-  const [product, setProduct] = useState([]);
-
-  useEffect(() => {
-    async function fetchData() {
-      const req = await axios("https://assessment-edvora.herokuapp.com/");
-
-      setProduct(req.data);
-    }
-
-    fetchData();
-  }, []);
-
-  return (
-    <Container>
-      {product.map((prod) => (
-        <img src={prod.image} alt={prod.brand} key={prod.product_name} />
-      ))}
-    </Container>
-  );
+  return <Container></Container>;
 };
 
 const Container = styled.div`
@@ -48,7 +30,7 @@ const Container = styled.div`
 
   img {
     object-fit: fill;
-    overflow: hidden;
+    // overflow: hidden;
     width: 50%;
     height: 50%;
   }

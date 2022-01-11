@@ -1,4 +1,6 @@
 import styled from "styled-components";
+import { useEffect, useState } from "react";
+import axios from "axios";
 
 const Header = () => {
   return (
@@ -14,7 +16,7 @@ const Container = styled.div`
   font-family: Avenir-Light, Arial, Helvetica, sans-serif;
   text-decoration: none;
   background-color: transparent;
-  margin-left: 40px;
+  margin-left: 25px;
   // margin-bottom: 20px;
 
   h1 {

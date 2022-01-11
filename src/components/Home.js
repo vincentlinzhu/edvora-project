@@ -1,16 +1,71 @@
 import styled from "styled-components";
 import Header from "./Header.js";
 import Filter from "./Filter.js";
-import ItemList from "./ItemList.js";
+import DigitsLimited from "./DigitsLimited.js";
+import TCSCorporation from "./TCSCorporation.js";
+import BerkshireHathway from "./BerkshireHathway.js";
+import Facebook from "./Facebook.js";
+import { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { setProduct } from "../features/product/productSlice";
+import axios from "axios";
 
 const Home = (props) => {
+  const dispatch = useDispatch();
+  let DigitsLimit = [];
+  let TCSCorporations = [];
+  let BerkshireHathways = [];
+  let Facebooks = [];
+
+  const [products, setProducts] = useState([]);
+  useEffect(() => {
+    async function fetchData() {
+      const req = await axios("https://assessment-edvora.herokuapp.com/");
+
+      setProducts(req.data);
+    }
+
+    fetchData();
+  }, []);
+
+  useEffect(() => {
+    products &&
+      products.map((prod) => {
+        switch (prod.product_name) {
+          case "Digits Limited":
+            DigitsLimit = [...DigitsLimited, prod];
+            break;
+          case "TCS corporation":
+            TCSCorporations = [...TCSCorporation, prod];
+            break;
+          case "Berkshire Hathway":
+            BerkshireHathways = [...BerkshireHathway, prod];
+            break;
+          case "Facebook":
+            Facebooks = [...Facebook, prod];
+            break;
+        }
+      });
+
+    dispatch(
+      setProduct({
+        DigitsLimited: DigitsLimit,
+        TCSCorporation: TCSCorporations,
+        BerkshireHathway: BerkshireHathways,
+        Facebook: Facebooks,
+      })
+    );
+  }, []);
+
   return (
     <Container>
       <Filter />
       <Content>
         <Header />
-        <ItemList />
-        <ItemList />
+        <DigitsLimited />
+        <TCSCorporation />
+        <BerkshireHathway />
+        <Facebook />
       </Content>
     </Container>
   );

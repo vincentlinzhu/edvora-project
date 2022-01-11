@@ -3,8 +3,12 @@ import styled from "styled-components";
 import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 import axios from "axios";
+import { selectDigitsLimited } from "../features/product/productSlice";
+import { useSelector } from "react-redux";
 
-const ItemList = () => {
+const DigitsLimited = () => {
+  // const product = useSelector(selectDigitsLimited);
+
   const [product, setProduct] = useState([]);
 
   useEffect(() => {
@@ -23,13 +27,26 @@ const ItemList = () => {
         <ArrowBackIosIcon />
       </Wrapper1>
       <Container>
-        Product Name
+        Digits Limited
         <Line />
         <Slider>
           {product &&
             product.map((prod) => (
               <ItemContent key={prod.product_name}>
-                <img src={prod.image} alt={prod.brand} />
+                <Wrap>
+                  <img src={prod.image} alt={prod.brand_name} />
+                  <div>
+                    <h1>{prod.product_name}</h1>
+                    <h2>{prod.brand_name}</h2>
+                    <h1>$ {prod.price}</h1>
+                  </div>
+                </Wrap>
+                <Lower>
+                  <p>
+                    {prod.address.city}, {prod.address.state} {prod.date}
+                  </p>
+                  <p>{prod.discription}</p>
+                </Lower>
               </ItemContent>
             ))}
         </Slider>
@@ -45,7 +62,7 @@ const OuterContainer = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin-left: 45px;
+  margin-left: 25px;
 `;
 
 const Wrapper1 = styled.div`
@@ -84,21 +101,22 @@ const Line = styled.div`
 `;
 
 const Slider = styled.div`
-  padding: 30px;
-  font-size: 14px;
-  display: grid;
-  grip-gap: 25px;
-  gap: 25px;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
+  padding: 20px;
+  // font-size: 14px;
+  display: flex;
+  // display: grid;
+  // grip-gap: 25px;
+  // gap: 25px;
+  // grid-template-columns: repeat(4, minmax(0, 1fr));
 
-  @media (max-width: 768px) {
-    grid-template-rows: repeat(1, minmax(0, 1fr));
-  }
+  // @media (max-width: 768px) {
+  //   grid-template-rows: repeat(1, minmax(0, 1fr));
+  // }
   background-color: #131313;
   border-radius: 15px;
   align-items: center;
   overflow: hidden;
-  // width: max-content;
+  width: max-content;
 `;
 
 const ItemContent = styled.div`
@@ -107,11 +125,11 @@ const ItemContent = styled.div`
   text-decoration: none;
   background-color: #232323;
   border: 1px solid white;
-  width: 15vw;
-  height: 10vw;
+  width: 16vw;
+  height: 12vw;
   border-radius: 4.68775px;
   z-index: 99;
-  margin-right: 25px;
+  margin-right: 16px;
   transition: all 250ms cubic-bezier(0.25, 0.46, 0.45, 0.94) 0s;
   border: 3px solid rgba(249, 249, 249, 0.1);
 
@@ -123,14 +141,34 @@ const ItemContent = styled.div`
     cursor: pointer;
   }
   img {
-    margin: 10px;
-    object-fit: contain;
+    object-fit: fill;
     overflow: hidden;
     width: 36%;
     height: 50%;
     background-color: white;
     border-radius: 10px;
   }
+  h1 {
+    font-size: 14px;
+    color: white;
+    margin-left: 20px;
+  }
+  h2 {
+    font-size: 12px;
+    color: #e5e5e5;
+    margin-left: 20px;
+    line-height: 1.25em;
+  }
 `;
 
-export default ItemList;
+const Wrap = styled.div`
+  display: flex;
+  margin: 10px 0px 10px 10px;
+`;
+const Lower = styled.div`
+  font-size: 14px;
+  color: #e5e5e5;
+  margin-left: 5px;
+`;
+
+export default DigitsLimited;
